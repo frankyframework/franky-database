@@ -1,7 +1,7 @@
 <?php
 namespace Franky\Database;
 
-class MYDEBUG
+class Debug
 {
     var $m_msg;
     var $PHP_TUSAGE;
