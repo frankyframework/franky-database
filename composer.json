@@ -1,7 +1,7 @@
 {
     "name": "frankyframework/franky-database",
     "type": "library",
-    "description": "Funciones de tokenizacion y escape de caracteres",
+    "description": "Modulo de consultas y conexion a BD",
     "authors": [
         {
             "name": "Ussiel Acevedo",
