@@ -8,7 +8,7 @@ class Update
 
 	function __construct($conexion = "conexion_bd")
 	{
-		$this->m_ibd = new \Franky\Database\IBD(new \Franky\Database\configure,$conexion,new \vendor\core\MYDEBUG);
+		$this->m_ibd = new \Franky\Database\IBD(new \Franky\Database\configure,$conexion,new \Franky\Database\Debug);
 	}
 
 	function execute($tabla, $nvoregistro, $condiciones)
