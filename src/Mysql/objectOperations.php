@@ -29,12 +29,12 @@ abstract class   objectOperations
 	function __construct($conexion = "conexion_bd")
 	{
 		$this->m_total		= 0;
-		$this->m_consultas	= new \Franky\Database\mysql\Select($conexion);
-		$this->insert	= new \Franky\Database\mysql\Insert($conexion);
-		$this->update	= new \Franky\Database\mysql\Update($conexion);
-		$this->delete	= new \Franky\Database\mysql\Delete($conexion);
-		$this->where	= new \Franky\Database\mysql\Where();
-		$this->from	= new \Franky\Database\mysql\From();
+		$this->m_consultas	= new \Franky\Database\Mysql\Select($conexion);
+		$this->insert	= new \Franky\Database\Mysql\Insert($conexion);
+		$this->update	= new \Franky\Database\Mysql\Update($conexion);
+		$this->delete	= new \Franky\Database\Mysql\Delete($conexion);
+		$this->where	= new \Franky\Database\Mysql\Where();
+		$this->from	= new \Franky\Database\Mysql\From();
     $this->m_results	= array();
     $this->m_row            = 0;
     $this->m_ultimoId       = 0;
