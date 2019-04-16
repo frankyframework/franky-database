@@ -28,7 +28,7 @@ class Debug
 
 
 
-        private function getMessages($inhtml=true)
+        public function getMessages($inhtml=true)
         {
             if($inhtml)
             {
