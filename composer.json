@@ -2,6 +2,8 @@
     "name": "frankyframework/franky-database",
     "type": "library",
     "description": "Modulo de consultas y conexion a BD.",
+    "minimum-stability": "dev",
+    "prefer-stable": false,
     "authors": [
         {
             "name": "Ussiel Acevedo",
