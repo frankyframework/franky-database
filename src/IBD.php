@@ -7,6 +7,8 @@ define ("IBD_SUCCESS",              $error_code++);
 define ("IBD_ERR_CANTCONNECT",      $error_code++);
 define ("IBD_ERR_DBUNAVAILABLE",    $error_code++);
 define ("IBD_ERR_CANTSELECT",       $error_code++);
+
+$conexiones_globales_ibd_class =[];
 class IBD
 {
 
@@ -33,21 +35,24 @@ class IBD
 
 	function ConectarBD()
 	{
+		global $conexiones_globales_ibd_class;
 
-
-
-                try {
-                    $this->m_link = new \PDO($this->configure->getDRIVE($this->m_conexion_db).":host=".$this->configure->getCONECTHOST($this->m_conexion_db).";dbname=".$this->configure->getDBNAME($this->m_conexion_db),
-                    $this->configure->getCONECTUSER($this->m_conexion_db), $this->configure->getCONECTPASSWORD($this->m_conexion_db));
-                    $this->m_link->exec("SET CHARACTER SET utf8");
-
-                    return IBD_SUCCESS;
-                }
-                catch(PDOException $e)
-                {
-                    $this->debug->setMessage("No se puede hacer la conexion. (".$e->getMessage().")","sql");
-                    return IBD_ERR_CANTCONNECT;
-                }
+		if(isset($conexiones_globales_ibd_class[$conexion])) {
+			$this->m_link = $conexiones_globales_ibd_class[$conexion];
+			return IBD_SUCCESS;
+		}
+		try {
+			$this->m_link = new \PDO($this->configure->getDRIVE($this->m_conexion_db).":host=".$this->configure->getCONECTHOST($this->m_conexion_db).";dbname=".$this->configure->getDBNAME($this->m_conexion_db),
+			$this->configure->getCONECTUSER($this->m_conexion_db), $this->configure->getCONECTPASSWORD($this->m_conexion_db));
+			$this->m_link->exec("SET CHARACTER SET utf8");
+			$conexiones_globales_ibd_class[$conexion] = $this->m_link;
+			return IBD_SUCCESS;
+		}
+		catch(PDOException $e)
+		{
+			$this->debug->setMessage("No se puede hacer la conexion. (".$e->getMessage().")","sql");
+			return IBD_ERR_CANTCONNECT;
+		}
 	}
 
 	function Execute($consulta)
