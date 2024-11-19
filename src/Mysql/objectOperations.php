@@ -35,9 +35,9 @@ abstract class   objectOperations
 		$this->delete	= new \Franky\Database\Mysql\Delete($conexion);
 		$this->where	= new \Franky\Database\Mysql\Where();
 		$this->from	= new \Franky\Database\Mysql\From();
-    $this->m_results	= array();
+    $this->m_result	= array();
     $this->m_row            = 0;
-    $this->m_ultimoId       = 0;
+    $this->m_ultimoID       = 0;
     $this->m_page           = 1;
     $this->m_tampag         = 1;
     $this->m_grupo          = "";

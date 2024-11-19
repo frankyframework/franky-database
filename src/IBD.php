@@ -21,15 +21,15 @@ class IBD
 
 	function __construct(
 		\Franky\Database\configure $MyConfigure,
-		$conexion = "conexion_bd",
+		$conexion,
 		\Franky\Database\Debug $MyDebug
 		)
 	{
-		$this->m_link=0;
+		
 		$this->m_dbResultados=array();
-    $this->m_conexion_db = $conexion;
-    $this->m_row = 0;
-    $this->configure = $MyConfigure;
+		$this->m_conexion_db = $conexion;
+		$this->m_row = 0;
+		$this->configure = $MyConfigure;
 		$this->debug = $MyDebug;
 	}
 
@@ -37,18 +37,18 @@ class IBD
 	{
 		global $conexiones_globales_ibd_class;
 
-		if(isset($conexiones_globales_ibd_class[$conexion])) {
-			$this->m_link = $conexiones_globales_ibd_class[$conexion];
+		if(isset($conexiones_globales_ibd_class[$this->m_conexion_db])) {
+			$this->m_link = $conexiones_globales_ibd_class[$this->m_conexion_db];
 			return IBD_SUCCESS;
 		}
 		try {
 			$this->m_link = new \PDO($this->configure->getDRIVE($this->m_conexion_db).":host=".$this->configure->getCONECTHOST($this->m_conexion_db).";dbname=".$this->configure->getDBNAME($this->m_conexion_db),
 			$this->configure->getCONECTUSER($this->m_conexion_db), $this->configure->getCONECTPASSWORD($this->m_conexion_db));
 			$this->m_link->exec("SET CHARACTER SET utf8");
-			$conexiones_globales_ibd_class[$conexion] = $this->m_link;
+			$conexiones_globales_ibd_class[$this->m_conexion_db] = $this->m_link;
 			return IBD_SUCCESS;
 		}
-		catch(PDOException $e)
+		catch(\PDOException $e)
 		{
 			$this->debug->setMessage("No se puede hacer la conexion. (".$e->getMessage().")","sql");
 			return IBD_ERR_CANTCONNECT;
@@ -62,7 +62,7 @@ class IBD
 			return $result;
 		}
 
-                $sql_time_i = explode(" ",microtime());
+        $sql_time_i = explode(" ",microtime());
 
 		$result= $this->m_link->exec($consulta);
 
